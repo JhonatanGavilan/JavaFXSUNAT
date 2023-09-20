@@ -7,28 +7,44 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 
 /**
  * JavaFX App
  */
 public class App extends Application {
-
-    private static Scene scene;
-
+    //<-- mover ventana de login -- >
+    private double xMov = 0;
+    private double yMov = 0;
+    //</-- -->
+    
     @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
-    }
+    public void start(Stage primaryStage) throws IOException {
+        try {
+            //String fxml_login = "/sunat/gob/pe/canchafutbol/controller/login/Login.fxml";
+            String fxml_login = "Login.fxml";
+            Parent root = FXMLLoader.load(getClass().getResource(fxml_login));
+            Scene escena = new Scene(root);
+            primaryStage.setScene(escena);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.show();
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
+            //<-- mover ventana de login -- >
+            root.setOnMousePressed((MouseEvent event) -> {
+                xMov = event.getSceneX();
+                yMov = event.getSceneY();
+            });
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+            root.setOnMouseDragged((MouseEvent event) -> {
+                primaryStage.setX(event.getScreenX() - xMov);
+                primaryStage.setY(event.getScreenY() - yMov);
+            });
+            //</-- -->
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

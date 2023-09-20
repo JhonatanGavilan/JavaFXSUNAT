@@ -1,0 +1,18 @@
+.btnAceptar{
+	-fx-background-color:  #22C023;
+}
+.btnAceptar:hover{
+	-fx-background-color:  #22C080;
+}
+.btnAceptar:pressed{
+	-fx-background-color:  #22C099;
+}
+.btnCancelar{
+	-fx-background-color:  #E40D0D;
+}
+.btnCancelar:hover{
+	-fx-background-color:  #E40D80;
+}
+.btnCancelar:pressed{
+	-fx-background-color:  #E40D99;
+}
